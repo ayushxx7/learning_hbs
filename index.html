@@ -49,6 +49,19 @@
         }
       });
 
+      Handlebars.registerHelper("sayHello", (options) => {
+        switch (options.data.lang) {
+          case "hindi":
+            return "namaste";
+            break;
+          case "english":
+            return "hello";
+            break;
+          default:
+            return "hey";
+        }
+      });
+
       var data = template({
         name: "Ayush",
         street: "123",
@@ -73,6 +86,7 @@
         {{{bio}}}<br />
         {{makeLink "blog" "https://ayush-blog.netlify.app"}}<br />
         {{changeColor "Make my text red" color="blue"}}<br />
+        {{sayHello}}
       </p>
     </script>
 
@@ -80,15 +94,18 @@
       var quoteInfo = document.getElementById("quote-template").innerHTML;
       var template = Handlebars.compile(quoteInfo);
 
-      var quoteData = template({
-        name: "Ayush M",
-        quotes: [
-          { quote: "my quote 1" },
-          { quote: "quote 2" },
-          { quote: "comma separated quotes" },
-        ],
-        bio: "<i>Pro Coder</i>",
-      });
+      var quoteData = template(
+        {
+          name: "Ayush M",
+          quotes: [
+            { quote: "my quote 1" },
+            { quote: "quote 2" },
+            { quote: "comma separated quotes" },
+          ],
+          bio: "<i>Pro Coder</i>",
+        },
+        { data: { lang: "hindi" } }
+      );
       document.getElementById("quoteData").innerHTML += quoteData;
     </script>
   </body>
