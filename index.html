@@ -6,6 +6,7 @@
   </head>
   <body>
     <div id="ayushData"></div>
+    <div id="quoteData"></div>
     <script type="text/javascript">
       var myInfo =
         "<p>My name is {{name}} and I live at {{street}} in {{city}}, {{state}}</p>";
@@ -18,6 +19,33 @@
       });
 
       document.getElementById("ayushData").innerHTML += data;
+    </script>
+    <script id="quote-template" type="text/x-handlebars-template">
+      <h3>
+        Fav {{name}} Quotes
+      </h3>
+      <ol>
+        {{#each quotes}}
+          <li>
+            {{quote}}
+          </li>
+        {{/each}}
+      </ol>
+    </script>
+
+    <script type="text/javascript">
+      var quoteInfo = document.getElementById("quote-template").innerHTML;
+      var template = Handlebars.compile(quoteInfo);
+
+      var quoteData = template({
+        name: "Ayush M",
+        quotes: [
+          { quote: "my quote 1" },
+          { quote: "quote 2" },
+          { quote: "comma separated quotes" },
+        ],
+      });
+            document.getElementById('quoteData').innerHTML += quoteData
     </script>
   </body>
 </html>
