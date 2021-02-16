@@ -3,6 +3,17 @@
   <head>
     <title>Learning Handlebars</title>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <style>
+      .redText {
+        color: red;
+      }
+      .blueText {
+        color: blue;
+      }
+      .greenText {
+        color: green;
+      }
+    </style>
   </head>
   <body>
     <div id="ayushData"></div>
@@ -19,6 +30,23 @@
         var theLink = `<a href="${url}">${text}</a>`;
 
         return new Handlebars.SafeString(theLink);
+      });
+
+      Handlebars.registerHelper("changeColor", function (text, options) {
+        text = Handlebars.Utils.escapeExpression(text);
+        if (options.hash.color === "red") {
+          return new Handlebars.SafeString(
+            "<span class='redText'>" + text + "</span>"
+          );
+        } else if (options.hash.color === "blue") {
+          return new Handlebars.SafeString(
+            "<span class='blueText'>" + text + "</span>"
+          );
+        } else {
+          return new Handlebars.SafeString(
+            `<span class='greenText'>${text}</span>`
+          );
+        }
       });
 
       var data = template({
@@ -42,8 +70,9 @@
         {{/each}}
       </ol>
       <p>
-        {{{bio}}}
-        {{makeLink "blog" "https://ayush-blog.netlify.app"}}
+        {{{bio}}}<br />
+        {{makeLink "blog" "https://ayush-blog.netlify.app"}}<br />
+        {{changeColor "Make my text red" color="blue"}}<br />
       </p>
     </script>
 
