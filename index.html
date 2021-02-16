@@ -11,6 +11,16 @@
       var myInfo =
         "<p>My name is {{name}} and I live at {{street}} in {{city}}, {{state}}</p>";
       var template = Handlebars.compile(myInfo);
+
+      Handlebars.registerHelper("makeLink", function (text, url) {
+        text = Handlebars.Utils.escapeExpression(text);
+        url = Handlebars.Utils.escapeExpression(url);
+
+        var theLink = `<a href="${url}">${text}</a>`;
+
+        return new Handlebars.SafeString(theLink);
+      });
+
       var data = template({
         name: "Ayush",
         street: "123",
@@ -32,7 +42,8 @@
         {{/each}}
       </ol>
       <p>
-      {{{bio}}}
+        {{{bio}}}
+        {{makeLink "blog" "https://ayush-blog.netlify.app"}}
       </p>
     </script>
 
@@ -47,9 +58,9 @@
           { quote: "quote 2" },
           { quote: "comma separated quotes" },
         ],
-              bio: '<i>Pro Coder</i>'
+        bio: "<i>Pro Coder</i>",
       });
-            document.getElementById('quoteData').innerHTML += quoteData
+      document.getElementById("quoteData").innerHTML += quoteData;
     </script>
   </body>
 </html>
