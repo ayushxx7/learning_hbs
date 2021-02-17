@@ -18,6 +18,7 @@
   <body>
     <div id="ayushData"></div>
     <div id="quoteData"></div>
+    <div id="contentDiv"></div>
     <script type="text/javascript">
       var myInfo =
         "<p>My name is {{name}} and I live at {{street}} in {{city}}, {{state}}</p>";
@@ -107,6 +108,37 @@
         { data: { lang: "hindi" } }
       );
       document.getElementById("quoteData").innerHTML += quoteData;
+    </script>
+
+    <script type="text/x-handlebars-template" id="the-template">
+      {{#makeRadio "size"}}
+        Small
+        Medium
+        Large
+      {{/makeRadio}}
+    </script>
+    <script type="text/javascript">
+      //block helper
+      var templateInfo = document.getElementById("the-template").innerHTML;
+
+      var template = Handlebars.compile(templateInfo);
+
+      Handlebars.registerHelper("makeRadio", (name, options) => {
+        var radioList = options.fn();
+        radioList = radioList.trim().split("\n");
+
+        var output = "";
+
+        for (var val in radioList) {
+          var item = radioList[val].trim();
+          output += `<input type="radio" name=${name} value=${item}>${item}<br/>`;
+        }
+        return output;
+      });
+
+      var templateData = template({});
+
+      document.getElementById("contentDiv").innerHTML += templateData;
     </script>
   </body>
 </html>
