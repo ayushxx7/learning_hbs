@@ -115,7 +115,13 @@
         Small
         Medium
         Large
-      {{/makeRadio}}
+      {{/makeRadio}}</br>
+
+      {{#areEqual 1 2}}
+        Numbers are Equal
+      {{else}}
+        Numbers are not equal
+      {{/areEqual}}<br />
     </script>
     <script type="text/javascript">
       //block helper
@@ -136,6 +142,13 @@
         return output;
       });
 
+      Handlebars.registerHelper("areEqual", (num1, num2, options) => {
+        if (num1 === num2) {
+          return options.fn(this);
+        } else {
+          return options.inverse(this);
+        }
+      });
       var templateData = template({});
 
       document.getElementById("contentDiv").innerHTML += templateData;
