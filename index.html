@@ -121,7 +121,13 @@
         Numbers are Equal
       {{else}}
         Numbers are not equal
-      {{/areEqual}}<br />
+      {{/areEqual}}<br /><br/>
+
+      {{#if 'isActive'}}
+      <img src="bs4.jpg" alt="Active">
+      {{else}}
+      <img src="bs5.jpg" alt="Not Active">
+      {{/if}}
     </script>
     <script type="text/javascript">
       //block helper
@@ -144,6 +150,14 @@
 
       Handlebars.registerHelper("areEqual", (num1, num2, options) => {
         if (num1 === num2) {
+          return options.fn(this);
+        } else {
+          return options.inverse(this);
+        }
+      });
+
+      Handlebars.registerHelper("if", (data, options) => {
+        if (data === "isActive") {
           return options.fn(this);
         } else {
           return options.inverse(this);
